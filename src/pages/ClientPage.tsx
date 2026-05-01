@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { supabase } from '../utils/supabase'
-import { Empresa, Relatorio, Indicador } from '../types/database'
+import type { Empresa, Relatorio, Indicador } from '../types/database'
 
 type CategoriaIndicador = 'liquidez' | 'rentabilidade' | 'endividamento' | 'atividade'
 

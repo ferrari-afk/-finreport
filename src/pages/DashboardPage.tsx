@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { supabase } from '../utils/supabase'
-import { Empresa, Relatorio } from '../types/database'
+import type { Empresa, Relatorio } from '../types/database'
 
 interface EmpresaComRelatorio extends Empresa {
   ultimoRelatorio?: Relatorio
@@ -75,13 +75,6 @@ export function DashboardPage() {
 
     const cor = cores[segmento] || cores['Outro']
     return { ...cor, nome: segmento.split('/')[0].trim() }
-  }
-
-  const getCorScore = (score?: number) => {
-    if (!score) return 'bg-gray-100'
-    if (score >= 70) return 'bg-green-100'
-    if (score >= 40) return 'bg-yellow-100'
-    return 'bg-red-100'
   }
 
   const getCorBarraScore = (score?: number) => {

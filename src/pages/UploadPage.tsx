@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { supabase } from '../utils/supabase'
-import { Empresa } from '../types/database'
+import type { Empresa } from '../types/database'
 
 interface ProcessoUpload {
   etapa: 'aguardando' | 'uploading' | 'processando' | 'concluido' | 'erro'
