@@ -1,0 +1,9 @@
+{
+  "imports": {
+    "supabase-js": "https://esm.sh/@supabase/supabase-js@2.38.4",
+    "anthropic": "https://esm.sh/@anthropic-ai/sdk@0.24.3",
+    "xlsx": "https://esm.sh/xlsx@0.18.5",
+    "pdfjs": "https://esm.sh/pdfjs-dist@3.11.174/legacy/build/pdf.js",
+    "std/": "https://deno.land/std@0.192.0/"
+  }
+}

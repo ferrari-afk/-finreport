@@ -161,20 +161,28 @@ export function UploadPage() {
 
       if (erroRelatorio) throw erroRelatorio
 
-      // Simular processamento (em produção seria via edge function/webhook)
-      setProcesso({ etapa: 'processando', mensagem: 'IA lendo os documentos...' })
-      await new Promise((r) => setTimeout(r, 2000))
+      // Chamar edge function para processar com IA
+      setProcesso({ etapa: 'processando', mensagem: 'Enviando para análise com IA...' })
 
-      setProcesso({ etapa: 'processando', mensagem: 'Calculando indicadores...' })
-      await new Promise((r) => setTimeout(r, 2000))
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+      const anonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-      // Atualizar status para concluído
-      const { error: erroAtualizar } = await supabase
-        .from('relatorios')
-        .update({ status: 'concluido' })
-        .eq('id', relatorioData.id)
+      const response = await fetch(`${supabaseUrl}/functions/v1/process-report`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${anonKey}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ relatorio_id: relatorioData.id }),
+      })
 
-      if (erroAtualizar) throw erroAtualizar
+      if (!response.ok) {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Erro ao processar análise')
+      }
+
+      const resultado = await response.json()
+      console.log('Análise concluída:', resultado)
 
       setProcesso({
         etapa: 'concluido',
